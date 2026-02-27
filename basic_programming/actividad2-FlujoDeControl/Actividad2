@@ -27,17 +27,12 @@ namespace Actividad2
                     Console.Write($"Nota {a+1}: ");
                     estudiante[i].c[a] = double.Parse(Console.ReadLine());
                 }
-            }
-            //Calculo de promedios 
-            for (int i = 0;i<n;i++)
-            {
-                estudiante[i].Promedio = (estudiante[i].c[0] + estudiante[i].c[1] + estudiante[i].c[2] + estudiante[i].c[3]) / 4;
-            }
 
-            //Determinación del estatus
-            for (int i = 0; i < n; i++)
-            {
-                if (estudiante[i].Promedio > 69)
+                //Calculo de promedio
+                    estudiante[i].Promedio = (estudiante[i].c[0] + estudiante[i].c[1] + estudiante[i].c[2] + estudiante[i].c[3]) / 4;
+
+                //Determinación del estatus
+                if (estudiante[i].Promedio >= 70)
                 {
                     estudiante[i].Estatus = "Aprobado";
                 }
@@ -67,9 +62,9 @@ namespace Actividad2
     }
     public class Estudiantes
     {
-        public string nombre;
-        public double[] c;
-        public double Promedio;
-        public string Estatus;
+        public string nombre { get; set; }
+        public double[] c { get; set; }
+        public double Promedio { get; set; }
+        public string Estatus { get; set; }
     }
 }
