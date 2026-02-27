@@ -1,0 +1,52 @@
+using System.Diagnostics.SymbolStore;
+
+namespace Actividad1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Calculadora del ISR (Impuesto Sobre la Renta) en la República Dominicana.");
+            Console.WriteLine();
+
+            Console.Write("Introduzca su sueldo mensual: ");
+            double sueldo = double.Parse(Console.ReadLine());
+
+            Console.WriteLine();
+            Console.WriteLine("        - Reporte -        ");
+            Console.WriteLine($" Sueldo: RD${sueldo.ToString("N2")} ");
+            double ISR = Retencion(sueldo);
+
+            if (ISR == 0)
+            {
+                Console.WriteLine(" ISR: N/A");
+            }
+            else
+            {
+                Console.WriteLine($" ISR: RD${ISR.ToString("N2")} ");
+            }
+        }
+        static double Retencion(double sueldo)
+        {
+            double impuesto;
+
+            if (sueldo <= 34685)
+            {
+                impuesto = 0;
+            }
+            else if (sueldo > 34685 && sueldo <= 52027.41667)
+            {
+                impuesto = (sueldo - 34685) * 0.15;
+            }
+            else if (sueldo > 52027.41667 && sueldo <= 72260.25)
+            {
+                impuesto = 2601.33 + ((sueldo - 52027.41667) * 0.20);
+            }
+            else
+            {
+                impuesto = 6648 + ((sueldo - 72260.25) * 0.25);
+            }
+            return impuesto;
+        }
+    }
+}
