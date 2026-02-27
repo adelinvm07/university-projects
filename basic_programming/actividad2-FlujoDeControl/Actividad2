@@ -1,0 +1,75 @@
+namespace Actividad2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Calculo de calificaciones.");
+            Console.WriteLine();
+
+            Console.WriteLine("¿De cuántos estudiantes desea promediar las calificaciones?");
+            int n = int.Parse(Console.ReadLine());
+
+            Estudiantes[] estudiante = new Estudiantes[n];
+
+            //bucle para recolectar a los estudiantes 
+            for (int i = 0;i<n;i++)
+            {
+                estudiante[i] = new Estudiantes();
+                estudiante[i].c = new double[4];
+
+                Console.Write($"Estudiante {i + 1}: ");
+                estudiante[i].nombre = Console.ReadLine();
+
+                //bucle para recolectar las calificaciones
+                for (int a = 0;a<4;a++)
+                {
+                    Console.Write($"Nota {a+1}: ");
+                    estudiante[i].c[a] = double.Parse(Console.ReadLine());
+                }
+            }
+            //Calculo de promedios 
+            for (int i = 0;i<n;i++)
+            {
+                estudiante[i].Promedio = (estudiante[i].c[0] + estudiante[i].c[1] + estudiante[i].c[2] + estudiante[i].c[3]) / 4;
+            }
+
+            //Determinación del estatus
+            for (int i = 0; i < n; i++)
+            {
+                if (estudiante[i].Promedio > 69)
+                {
+                    estudiante[i].Estatus = "Aprobado";
+                }
+                else
+                {
+                    estudiante[i].Estatus = "Reprobado";
+                }
+            }
+
+            //Mostrar la informacion 
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("|       Estudiante       |   Nota 1   |   Nota 2   |   Nota 3   |   Nota 4   |   Promedio   |    Estatus    |");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
+
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine($"|   {estudiante[i].nombre.PadRight(18)}   " +
+                    $"|   {estudiante[i].c[0].ToString().PadRight(6)}   " +
+                    $"|   {estudiante[i].c[1].ToString().PadRight(6)}   " +
+                    $"|   {estudiante[i].c[2].ToString().PadRight(6)}   " +
+                    $"|   {estudiante[i].c[3].ToString().PadRight(6)}   " +
+                    $"|   {estudiante[i].Promedio.ToString().PadRight(7)}    " +
+                    $"|   {estudiante[i].Estatus.PadRight(7)}   |");
+            }
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
+        }
+    }
+    public class Estudiantes
+    {
+        public string nombre;
+        public double[] c;
+        public double Promedio;
+        public string Estatus;
+    }
+}
