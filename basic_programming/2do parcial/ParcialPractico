@@ -1,0 +1,205 @@
+namespace SegundoParcialPractico
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Sistema de Gestión de Inventario. \n");
+            ProductoElectronico productoElectronico = new ProductoElectronico("", "", 0, 0);
+            ProductoAlimento productoAlimento = new ProductoAlimento("", "", 0, 0);
+
+            // Insercion de datos del producto electrónico
+            Console.Write("Producto electrónico. \nNombre del producto: ");
+            string nombreE = Console.ReadLine();
+            productoElectronico.SetNombre(nombreE);
+
+            Console.Write("Código: ");
+            string codigoE = Console.ReadLine();
+            productoElectronico.SetCodigo(codigoE);
+
+            Console.Write("Precio: ");
+            double precioE = double.Parse(Console.ReadLine());
+            productoElectronico.SetPrecio(precioE);
+
+            Console.Write("Cantidad: ");
+            int cantidadE = int.Parse(Console.ReadLine());
+            productoElectronico.SetCantidad(cantidadE);
+
+            Console.Write("Garantía (en meses): ");
+            int garantia = int.Parse(Console.ReadLine());
+            productoElectronico.SetGarantia(garantia);
+
+            // Insercion de datos del producto alimenticio
+            Console.Write("\n Prodcuto alimenticio. \nNombre del producto: ");
+            string nombreA = Console.ReadLine();
+            productoAlimento.SetNombre(nombreA);
+
+            Console.Write("Código: ");
+            string codigoA = Console.ReadLine();
+            productoAlimento.SetCodigo(codigoA);
+
+            Console.Write("Precio: ");
+            double precioA = double.Parse(Console.ReadLine());
+            productoAlimento.SetPrecio(precioA);
+
+            Console.Write("Cantidad: ");
+            int cantidadA = int.Parse(Console.ReadLine());
+            productoAlimento.SetCantidad(cantidadA);
+
+            Console.Write("Fecha de Vencimiento: ");
+            string vencimiento = Console.ReadLine();
+            productoAlimento.SetFechaVencimiento(vencimiento);
+
+            // Muestra de info
+            productoElectronico.MostrarProducto();
+            productoAlimento.MostrarProducto();
+        }
+    }
+
+    public class Producto
+    {
+        protected string Nombre;
+        protected string Codigo;
+        protected double Precio;
+        protected int Cantidad;
+
+        public Producto(string nombre, string codigo, double precio, int cantidad)
+        {
+            this.Nombre =nombre;
+            this.Codigo = codigo;
+            this.Precio = precio;
+            this.Cantidad = cantidad;
+        }
+
+        public virtual void MostrarProducto()
+        {
+            Console.WriteLine($"Producto: {Nombre} \nCódigo: {Codigo} \nPrecio: RD${Precio} \nCantidad: {Cantidad}");
+        }
+
+        // Getters 
+        public string GetNombre() => Nombre;
+        public string GetCodigo() => Codigo;
+        public double GetPrecio() => Precio;
+        public int GetCantidad() => Cantidad;
+
+        // Setters
+        public void SetNombre(string nombre)
+        {
+            if (nombre != "")
+            {
+                Nombre = nombre;
+            }
+            else
+            {
+                Nombre = "Nombre no introducido";
+            }
+        }
+        public void SetCodigo(string codigo)
+        {
+            if (codigo != "")
+            {
+                Codigo = codigo;
+            }
+            else
+            {
+                Codigo = "Código no introducido";
+            }
+        }
+        public void SetPrecio(double precio)
+        {
+            if (precio >= 0)
+            {
+                Precio = precio;
+            }
+            else
+            {
+                Precio = 0;
+            }
+        }
+        public void SetCantidad(int cantidad)
+        {
+            if (cantidad >= 0)
+            {
+                Cantidad = cantidad;
+            }
+            else
+            {
+                Cantidad = 0;
+            }
+        }
+    }
+
+    public class ProductoElectronico : Producto
+    {
+        private int garantiaMeses;
+
+        public ProductoElectronico(string nombre, string codigo, double precio, int cantidad)
+            : base(nombre, codigo, precio, cantidad)
+        {
+            this.garantiaMeses = 0;
+        }
+
+        public void SetGarantia(int meses)
+        {
+            if (meses >= 0)
+            {
+                garantiaMeses = meses;
+            }
+            else
+            {
+                garantiaMeses = 0;
+            }
+        }
+
+        public int GetGarantia() => garantiaMeses;
+
+        public double CalcularImpuesto()
+        {
+            double impuestos = Precio * 0.18;
+            return impuestos;
+        }
+
+        public override void MostrarProducto()
+        {
+            Console.WriteLine("\n--- Información del producto electrónico ---");
+            base.MostrarProducto();
+            Console.WriteLine($"Garantía: {garantiaMeses} meses \nImpuestos: RD${CalcularImpuesto()}");
+        }
+    }
+
+    public class ProductoAlimento : Producto
+    {
+        private string fechaDeVencimiento;
+
+        public ProductoAlimento(string nombre, string codigo, double precio, int cantidad)
+            : base(nombre, codigo, precio, cantidad)
+        {
+            this.fechaDeVencimiento = "No introducida";
+        }
+
+        public void SetFechaVencimiento(string fecha)
+        {
+            if (fecha != "")
+            {
+                fechaDeVencimiento = fecha;
+            }
+            else
+            {
+                fechaDeVencimiento = "Fecha no introducida";
+            }
+        }
+
+        public string GetFechaVencimiento() => fechaDeVencimiento;
+        public double CalcularImpuesto()
+        {
+            double impuestos = Precio * 0.08;
+            return impuestos;
+        }
+        public override void MostrarProducto()
+        {
+            Console.WriteLine("\n--- Información del producto alimenticio ---");
+            base.MostrarProducto();
+            Console.WriteLine($"Fecha de Vencimiento: {fechaDeVencimiento} \nImpuestos: RD${CalcularImpuesto()}");
+        }
+    }
+}
