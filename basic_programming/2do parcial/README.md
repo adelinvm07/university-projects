@@ -1,12 +1,10 @@
 # Segundo parcial práctico
 
 ## Descripción 
-Programa que permite a gestionar el inventario de sus productos de una pequeña tienda. 
+Programa en C# que simula el inventario de una pequeña tienda y puede gestionarlo.
+Compuesto por:
+- Una clase "Producto" principal, donde se almacenan las caracteristicas comunes de los productos.
+- Una clase llamada "ProductoElectronico", que hereda de "Producto".
+- Una clase llamada "ProductoAlimenticio", que también hereda de "Producto".
 
-## Pruebas de uso en distintos casos
-
-### Caso 1 - Productos que cumplen los estándares
-
-### Caso 2 - Productos que no cumplen (les falta nombre o tienen precio negativo)
-
-### Nota: Las imágenes están en el pdf.
+### Nota: Las imágenes de los distinos casos están en el pdf debido a problemas al intentar adjuntarlas aquí.
